@@ -1,6 +1,3 @@
-MOCCA
-=====
-
 MOCCA is a novel computational method to accurately identify TF
 footprints from genome sequence information and cell-type--specific
 experimental data, such as DNase-seq data. Our approach combines the
