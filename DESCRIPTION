@@ -1,0 +1,17 @@
+Package: Romulus
+Title: Robust Multi-State Identification of Transcription Factor Binding Sites
+Version: 1.0.0.9000
+Authors@R: person("Aleksander", "Jankowski", email = "ajank@mimuw.edu.pl", role = c("aut", "cre"))
+Description: Romulus is a computational method to accurately identify individual
+    transcription factor binding sites from genome sequence information and
+    cell-type--specific experimental data, such as DNase-seq. It combines the
+    strengths of its predecessors, CENTIPEDE and Wellington, while keeping
+    the number of free parameters in the model robustly low. The method is
+    unique in allowing for multiple binding states for a single transcription
+    factor, differing in their cut profile and overall number of DNase I cuts.
+URL: http://github.com/ajank/Romulus
+Depends: R (>= 2.10)
+License: GPL-3
+LazyData: true
+Suggests: knitr
+VignetteBuilder: knitr
