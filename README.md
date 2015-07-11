@@ -1,4 +1,4 @@
-# Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data
+## Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data
 
 Romulus is a computational method to accurately identify individual
 transcription factor binding sites from genome sequence information and
