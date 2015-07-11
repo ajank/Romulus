@@ -45,19 +45,58 @@ A list with the elements
 \item{Lambda2}{list of estimated multinomial parameters \eqn{\lambda_b^{-(k)}} for each state.}
 \item{LambdaReg1}{matrix of multinomial parameter estimates for forward strand DNase I cuts, smoothed by replacing the fixed-value bins by a piecewise linear function, with a row for each state.}
 \item{LambdaReg2}{matrix of multinomial parameter estimates for reverse strand DNase I cuts, as above.}
-\item{PriorProb}{matrix of prior probabilities, with a row for each candidate binding site and a column for each state.}
-\item{LogLikelihood}{matrix of log-likelihoods FIXME probabilities, with a row for each candidate binding site and a column for each state.}
-\item{PostProb}{as above FIXME.}
+\item{PriorProb}{matrix of prior probabilities calculated from the logistic regression component, with a row for each candidate binding site and a column for each state.}
+\item{LogLikelihood}{matrix of log-likelihoods calculated from the negative binomial and multinomial components, with a row for each candidate binding site and a column for each state.}
+\item{PostProb}{matrix of posterior probabilities, calculated from the complete model, with a row for each candidate binding site and a column for each state.}
 }
 \description{
 Fit the Romulus model.
 }
 \details{
-d
+Fit the Romulus model using an Expectation-Maximization approach.
 }
 \examples{
+# Clip the DNase-seq data for NRSF at 99.9\% quantile
+thresh <- max(quantile(NRSF.cuts, 0.999), 1L)
+cuts <- pmin(NRSF.cuts, thresh)
+
+# Forward strand cuts only upstream and within the candidate binding site
+cuts1 <- cuts[, 1:(ncol(cuts) / 2 - NRSF.margin)]
+# Reverse strand cuts only within the candidate binding site and downstream
+cuts2 <- cuts[, ncol(cuts) / 2 + (NRSF.margin + 1):(ncol(cuts) / 2)]
+
+# Take 20 bp bins outside the candidate binding site and 1 bp bins within it
+NRSF.width <- (ncol(cuts) - 4 * NRSF.margin) / 2
+bins1 <- c(rep(1:10, each = 20), 10 + 1:NRSF.width)
+bins2 <- c(1:NRSF.width, NRSF.width + rep(1:10, each = 20))
+
+# Fit the Romulus model
+r.fit <- fitRomulus(cuts1, cuts2, NRSF.anno, list(c("score")), bins1, bins2)
+
+
+# Benchmarking of Romulus and CENTIPEDE
+
 \dontrun{
-sum("a")
+library(ROCR)
+library(CENTIPEDE)
+c.fit <- fitCentipede(Xlist = list(DNase = as.matrix(NRSF.cuts)),
+  Y = cbind(1, NRSF.anno$score))
+
+r.pred <- prediction(1 - r.fit$PostProb[, r.fit$nstates],
+  as.integer(NRSF.anno$signalValue > 0))
+r.perf <- performance(r.pred, measure = "tpr", x.measure = "fpr")
+r.auc <- performance(r.pred, measure = "auc")
+
+c.pred <- prediction(c.fit$PostPr, as.integer(NRSF.anno$signalValue > 0))
+c.perf <- performance(c.pred, measure = "tpr", x.measure = "fpr")
+c.auc <- performance(c.pred, measure = "auc")
+
+plot(r.perf, col = "red",
+  main = "NRSF binding predictions benchmarked using ChIP-seq data")
+lines(c.perf@x.values[[1]], c.perf@y.values[[1]], col = "blue")
+legend("bottomright", col = c("red", "blue"), lty = 1,
+  legend = c(sprintf("Romulus, AUC = \%0.4f", r.auc@y.values[[1]]),
+  sprintf("CENTIPEDE, AUC = \%0.4f", c.auc@y.values[[1]])))
 }
 }
 \references{
