@@ -17,7 +17,7 @@ http://www.mimuw.edu.pl/~ajank/Romulus/Romulus-manual.pdf.
 
 The most recent stable version of Romulus is available from
 http://www.mimuw.edu.pl/~ajank/Romulus/Romulus_1.0.0.tar.gz.
-Install it using the following R command:
+Please install it using the following R command:
 
 ```R
 install.packages("Romulus_1.0.0.tar.gz", repos = NULL, type = "source")
@@ -31,13 +31,13 @@ library(devtools)
 install_github("ajank/Romulus")
 ```
 
-If you do not have the library ´devtools´ installed, please install it first:
+If you do not have the package `devtools´ installed, please install it first:
 
 ```R
 install.packages("devtools")
 ```
 
-#### References
+#### Citation
 
 At the moment, please cite Romulus as:
 
