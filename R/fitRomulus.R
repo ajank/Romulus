@@ -7,7 +7,7 @@
 #' @param bins1 integer vector or matrix specifying how the columns of \code{cuts1} are grouped into bins. If a matrix, each row specifies the grouping for each bound state separately, otherwise the same grouping will be used for all the bound states. The numbers specifying the grouping must form the set of the first N natural numbers (\eqn{1}, \eqn{\dots}, \eqn{N}) for some \eqn{N}.
 #' @param bins2 integer vector or matrix specifying how the columns of \code{cuts2} are grouped into bins, as above.
 #' @param nbound optional integer, specifying the number of bound states. If not provided, the value will be guessed from the length of \code{anno} or the number of rows in \code{bins1} and \code{bins2}.
-#' @param PriorLik optional numeric matrix, with a row for each candidate binding site and a column for each bound state, containing the prior likelihood.
+#' @param PriorLik optional numeric matrix, with a row for each candidate binding site and a column for each bound state, containing the initial prior likelihoods. If not provided, the default initialization procedure will be used.
 #' @param addIntercept logical. Should an additional intercept term be included in the model?
 #' @param maxIter integer. Maximal number of Expectation-Maximization iterations to perform.
 #' @param maxPostProbDiff numeric. The Expectation-Maximization procedure will be terminated when the absolute differences in posterior probabilities between the iterations will become smaller than this value.
