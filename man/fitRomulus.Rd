@@ -23,7 +23,7 @@ fitRomulus(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
 
 \item{nbound}{optional integer, specifying the number of bound states. If not provided, the value will be guessed from the length of \code{anno} or the number of rows in \code{bins1} and \code{bins2}.}
 
-\item{PriorLik}{optional numeric matrix, with a row for each candidate binding site and a column for each bound state, containing the prior likelihood.}
+\item{PriorLik}{optional numeric matrix, with a row for each candidate binding site and a column for each bound state, containing the initial prior likelihoods. If not provided, the default initialization procedure will be used.}
 
 \item{addIntercept}{logical. Should an additional intercept term be included in the model?}
 
@@ -100,6 +100,6 @@ legend("bottomright", col = c("red", "blue"), lty = 1,
 }
 }
 \references{
-Jankowski, A., Tiuryn, J. and Prabhakar, S. (2015) Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data. \url{http://github.com/ajank/Romulus}
+Jankowski, A., Tiuryn, J. and Prabhakar, S. (2016) Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data. Bioinformatics. doi: 10.1093/bioinformatics/btw209
 }
 
