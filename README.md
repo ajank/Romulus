@@ -41,6 +41,6 @@ install.packages("devtools")
 
 At the moment, please cite Romulus as:
 
-Jankowski, A., Tiuryn, J. and Prabhakar, S. (2015) Romulus: Robust
+Jankowski, A., Tiuryn, J. and Prabhakar, S. (2016) Romulus: Robust
 multi-state identification of transcription factor binding sites
-from DNase-seq data. http://github.com/ajank/Romulus
+from DNase-seq data. Bioinformatics. doi: 10.1093/bioinformatics/btw209

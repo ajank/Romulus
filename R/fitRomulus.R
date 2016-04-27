@@ -32,7 +32,7 @@
 #' \item{LogLikelihood}{matrix of log-likelihoods calculated from the negative binomial and multinomial components, with a row for each candidate binding site and a column for each state.}
 #' \item{PostProb}{matrix of posterior probabilities, calculated from the complete model, with a row for each candidate binding site and a column for each state.}
 #'
-#' @references Jankowski, A., Tiuryn, J. and Prabhakar, S. (2015) Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data. \url{http://github.com/ajank/Romulus}
+#' @references Jankowski, A., Tiuryn, J. and Prabhakar, S. (2016) Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data. Bioinformatics. doi: 10.1093/bioinformatics/btw209
 #'
 #' @examples
 #' # Clip the DNase-seq data for NRSF at 99.9% quantile
