@@ -203,6 +203,9 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
       thislm <- lm(PriorLogLik[, k] ~ . - 1, data = as.data.frame(anno[, cols[[k]], drop = F]))
 
     Beta[[k]] <- thislm$coefficients
+    # if some of the coefficients could not be fitted, then they are NAs; replace them with 0s
+    Beta[[k]][is.na(Beta[[k]])] <- 0
+
   #  PriorLogLik[, k] <- extanno[, extcols[[k]], drop = F] %*% Beta[[k]] # equivalent to predict(thislm)
   }
   cat("\nInitial logistic regression parameters:\n")
