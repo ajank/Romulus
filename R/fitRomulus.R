@@ -79,7 +79,7 @@
 #' }
 
 fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
-  PriorLik = NULL, addIntercept = T, maxIter = 100, maxPostProbDiff = 0.001)
+  PriorLik = NULL, addIntercept = T, mixingDelta = 0.5, maxIter = 100, maxPostProbDiff = 0.001)
 {
   stopifnot(is.matrix(cuts1))
   stopifnot(is.matrix(cuts2))
@@ -114,6 +114,9 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   stopifnot(length(priors) == nbound)
   stopifnot(nrow(bins1) == nbound)
   stopifnot(nrow(bins2) == nbound)
+
+  stopifnot(0 < mixingDelta)
+  stopifnot(mixingDelta <= 1)
 
   # adding the unbound state with uniform cut distribution
   bins1 <- rbind(bins1, 1L)
@@ -381,8 +384,8 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
     Lambda1 <- lapply(1:nstates, function(k)
     {
       lambda <- as.vector(crossprod(PostProb[, k], bincuts1[[k]])) / binsizes1[[k]]
-      lambda <- lambda + sum(lambda * binsizes1[[k]]) / ncol(bins1) # estimator shrinkage
-      lambda / sum(lambda * binsizes1[[k]])
+      lambda <- lambda / sum(lambda * binsizes1[[k]])
+      return(mixingDelta * lambda + (1 - mixingDelta) / ncol(bins1)) # estimator shrinkage
     })
     #print(Lambda1)
 
@@ -393,8 +396,8 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
     Lambda2 <- lapply(1:nstates, function(k)
     {
       lambda <- as.vector(crossprod(PostProb[, k], bincuts2[[k]])) / binsizes2[[k]]
-      lambda <- lambda + sum(lambda * binsizes2[[k]]) / ncol(bins2) # estimator shrinkage
-      lambda / sum(lambda * binsizes2[[k]])
+      lambda <- lambda / sum(lambda * binsizes2[[k]])
+      return(mixingDelta * lambda + (1 - mixingDelta) / ncol(bins2)) # estimator shrinkage
     })
     #print(Lambda2)
     cat("\nUpdated multinomial parameters for DNase I footprint (not shown).\n")
