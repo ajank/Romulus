@@ -195,7 +195,14 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   }
   stopifnot(nrow(PriorLik) == nrow(anno))
   stopifnot(ncol(PriorLik) == nbound)
+
   PriorLogLik <- log(PriorLik)
+  PriorProbUnbound <- 1 / (1 + apply(PriorLik, 1, sum))
+  PriorProb <- cbind(PriorLik * PriorProbUnbound, PriorProbUnbound, deparse.level = 0)
+
+  # only for the first iteration
+  PostProb <- PriorProb
+  OldPostProb <- NA
 
   Beta <- list()
   for (k in 1:nbound)
@@ -225,15 +232,6 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
     extanno <- as.matrix(anno[, colsel])
     extcols <- lapply(cols, function(v) v[colsel])
   }
-
-  PriorLogLik <- sapply(1:nbound, function(k) extanno[, extcols[[k]], drop = F] %*% Beta[[k]])
-  PriorLik <- exp(PriorLogLik)
-  PriorProbUnbound <- 1 / (1 + apply(PriorLik, 1, sum))
-  PriorProb <- cbind(PriorLik * PriorProbUnbound, PriorProbUnbound, deparse.level = 0)
-
-  # only for the first iteration
-  PostProb <- PriorProb
-  OldPostProb <- NA
 
 
   for (iter in 1:maxIter)
