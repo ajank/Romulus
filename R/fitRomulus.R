@@ -32,7 +32,8 @@
 #' \item{LogLikelihood}{matrix of log-likelihoods calculated from the negative binomial and multinomial components, with a row for each candidate binding site and a column for each state.}
 #' \item{PostProb}{matrix of posterior probabilities, calculated from the complete model, with a row for each candidate binding site and a column for each state.}
 #'
-#' @references Jankowski, A., Tiuryn, J. and Prabhakar, S. (2016) Romulus: Robust multi-state identification of transcription factor binding sites from DNase-seq data. Bioinformatics. doi: 10.1093/bioinformatics/btw209
+#' @references
+#' Jankowski, A., Tiuryn, J. and Prabhakar, S. (2016).  Romulus: robust multi-state identification of transcription factor binding sites from DNase-seq data.  \emph{Bioinformatics} \bold{32}, 2419--2426. doi: 10.1093/bioinformatics/btw209.
 #'
 #' @examples
 #' # Clip the DNase-seq data for NRSF at 99.9% quantile
@@ -73,7 +74,7 @@
 #' plot(r.perf, col = "red",
 #'   main = "NRSF binding predictions benchmarked using ChIP-seq data")
 #' lines(c.perf@@x.values[[1]], c.perf@@y.values[[1]], col = "blue")
-#' legend("bottomright", col = c("red", "blue"), lty = 1, 
+#' legend("bottomright", col = c("red", "blue"), lty = 1,
 #'   legend = c(sprintf("Romulus, AUC = %0.4f", r.auc@@y.values[[1]]),
 #'   sprintf("CENTIPEDE, AUC = %0.4f", c.auc@@y.values[[1]])))
 #' }

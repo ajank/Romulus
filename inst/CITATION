@@ -1,0 +1,14 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Article",
+  author = c(person("Aleksander", "Jankowski"),
+    person("Jerzy", "Tiuryn"),
+    person("Shyam", "Prabhakar")),
+  title = "Romulus: robust multi-state identification of transcription factor binding sites from DNase-seq data",
+  journal = "Bioinformatics",
+  volume = "32",
+  number = "16",
+  pages = "2419--2426",
+  year = "2016",
+  doi = "10.1093/bioinformatics/btw209")
