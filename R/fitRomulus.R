@@ -184,7 +184,7 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
       else
       {
         # if priors are the same for multiple states, differentiate the states by kmeans clustering
-        cat(paste0("Applying k-means clustering to differentiate tkmeahe initial prior probabilities of states: ",
+        cat(paste0("Applying k-means clustering to differentiate the initial prior probabilities of states: ",
           paste0(st, collapse = ", "), "\n"))
         scselcuts <- cbind(bincuts1[[st[1]]][scsel, ], bincuts2[[st[1]]][scsel, ])
         scselclust <- kmeans(scselcuts, length(st), nstart = 100)$cluster
