@@ -89,6 +89,9 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   stopifnot(nrow(cuts2) == nrow(anno))
   nr <- nrow(anno)
 
+  stopifnot(is.vector(bins1) || is.matrix(bins1))
+  stopifnot(is.vector(bins2) || is.matrix(bins1))
+
   if (is.na(nbound))
   {
     if (is.list(priors))
