@@ -104,6 +104,9 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   nstates <- nbound + 1L
   cat(paste0("Fitting Romulus model with ", nstates, " states, i.e. ", nbound, " bound state", ifelse(nbound > 1, "s", ""), " and 1 unbound state.\n"))
 
+  if (nstates > nr)
+    stop("attempt to fit a model with more states than candidate binding sites")
+
   if (!is.list(priors))
     priors <- replicate(nbound, priors, simplify = F)
   if (!is.matrix(bins1))
@@ -138,9 +141,8 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   result$bins1 <- bins1
   result$bins2 <- bins2
 
-  for (k in 1:nbound)
-    if (!all(priors[[k]] %in% colnames(anno)))
-      stop(paste0("'priors' refers to column names not present in 'anno'"))
+  if (!all(do.call(c, priors) %in% colnames(anno)))
+    stop("'priors' refers to column names not present in 'anno'")
   cols <- lapply(1:nbound, function(k) colnames(anno) %in% priors[[k]])
 
   cat("Priors and numbers of parameters for forward+reverse strand DNase I footprints:\n")
