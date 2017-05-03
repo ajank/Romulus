@@ -172,8 +172,12 @@ fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   if (is.null(PriorLik))
   {
     PriorLik <- matrix(0.01, nr, nbound)
+    sumcuts <- sumcuts1 + sumcuts2
     # initial estimate of bound states
-    scsel <- sumcuts1 + sumcuts2 > quantile(sumcuts1 + sumcuts2, probs = 0.9)
+    scsel <- sumcuts >= quantile(sumcuts, probs = 0.9)
+    if (sum(scsel) < nbound)
+      scsel <- sumcuts >= sort(sumcuts, decreasing = T)[nbound]
+    rm(sumcuts)
 
     for (uc in unique(cols))
     {
