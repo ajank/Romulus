@@ -78,6 +78,8 @@
 #'   legend = c(sprintf("Romulus, AUC = %0.4f", r.auc@@y.values[[1]]),
 #'   sprintf("CENTIPEDE, AUC = %0.4f", c.auc@@y.values[[1]])))
 #' }
+#'
+#' @export
 
 fitRomulus <- function(cuts1, cuts2, anno, priors, bins1, bins2, nbound = NA,
   PriorLik = NULL, addIntercept = T, mixingDelta = 0.5, maxIter = 100, maxPostProbDiff = 0.001)
